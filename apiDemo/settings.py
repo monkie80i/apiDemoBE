@@ -19,7 +19,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-modpu066bp@*m9epc1r*qrg=iy_$n_0k=y^47+h6ln8_%y0!*p'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -30,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'instrtuctors.apps.InstrtuctorsConfig',
+    'frontend.apps.FrontendConfig',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',

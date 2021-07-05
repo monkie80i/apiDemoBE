@@ -1,0 +1,13 @@
+[
+{
+  "model": "instrtuctors.instructor",
+  "pk": 1,
+  "fields": {
+    "name": "Silvy Fárbauti",
+    "dept_name": "Comp Sci",
+    "salary": 20000,
+    "age": 30,
+    "dependants": 1
+  }
+}
+]

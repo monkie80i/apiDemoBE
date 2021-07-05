@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This is a front end to consume instructor api">
+  <meta name="author" content="Shahzan Sadick">
+	<title>Instructor Api Consumer</title>
+	<style type="text/css">
+		body {
+			background-color: black;
+			color: #20C20E;	
+			font-family: "Courier New", monospace;	}
+		.header {
+			text-align: center;
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+		.main {
+			display: flex;
+			flex-direction: column;
+			margin-right: 25%;
+			margin-left: 25%;
+		}
+		.button {
+			border: 1px solid #20C20E;
+			width: 100px;
+			align-self: center;
+			background-color: inherit;
+			color: #20C20E;
+			padding-top: 10px;
+			padding-bottom: 10px;
+  			text-decoration: none;
+  			font-size: 16px;
+  			margin: 10px 2px;
+  			cursor: pointer;
+  			font-family: "Courier New", monospace;
+  			font-weight: bolder;
+		}
+		
+		#instructors td, #instructors th {
+  			padding: 4px;
+  			text-align: left;
+		}
+
+		#table {
+			display: none;
+		}
+		#error {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="header"><h1 class="title">Instructor Api Front end.</h1>
+	</div>
+	<div class="main">
+		<div id='content'>
+			
+			<div id="welcome">
+				<p>Welcome! click on the "Display button to request Data "</p>
+			</div>
+			<div id="table">
+				<table id="instructors">
+  					<tr>
+    					<th>Name</th>
+    					<th>Department</th>
+    					<th>Salary</th>
+    					<th>Age</th>
+						<th>Dependants</th>
+  					</tr>
+				</table>
+			</div>
+			<div id="error">
+				<p>Something unexpected happened. Please Try Again After Sometime. </p>
+			</div>
+		</div>
+		<button id="display" class="button">Display</button>
+		<div>
+			<br><br><br>
+			<hr style="border:1px solid #20C20E;">
+			<p>@shahzan.sadick</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	document.getElementById('display').addEventListener('click',getData);
+	var recieved = false;
+	function getData(){
+		if (!recieved){
+			var request = new XMLHttpRequest();
+			request.open('GET','http://127.0.0.1:8000/api/data/',true);
+
+			request.onload = function(){
+				//what happens when request is recieved
+				var data = JSON.parse(this.response);
+
+				if (request.status >= 200 && request.status < 400 ){
+					displayData(data);
+					recieved = true;
+				}
+				else{
+					document.getElementById('welcome').style.display = 'none';
+					document.getElementById('error').style.display = 'block';
+				}	
+			}
+			request.send();
+		}
+		
+	}
+
+	function displayData(data){
+
+		var instructors = document.getElementById('instructors')
+		data.forEach((instrucor) => {
+			const trow = document.createElement('tr');
+			trow.innerHTML = "<td>"+instrucor.name+"</td><td>"+instrucor.dept_name+"</td><td>"+instrucor.salary+"</td><td>"+instrucor.age+"</td><td>"+instrucor.dependants+"</td>"
+		
+			instructors.appendChild(trow);
+			document.getElementById('welcome').style.display = 'none';
+			document.getElementById('table').style.display = 'block';
+		})
+
+	}
+</script>
+</html>
